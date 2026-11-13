@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{pageTitle}} · Nested Forum</title>
+  <link rel="icon" href="/assets/default-avatar.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/style.css">
+  <script src="/assets/replies.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+  <header class="site-header">
+    <a class="brand" href="/">Nested Forum</a>
+    <nav aria-label="Account" class="account-nav">
+      {{#loggedIn}}
+        <span>Signed in as <strong>{{username}}</strong></span>
+        <form method="post" action="/logout" class="inline-form">
+          <input type="hidden" name="_token" value="{{csrfToken}}">
+          <button type="submit" class="button button--quiet">Log out</button>
+        </form>
+      {{/loggedIn}}
+      {{^loggedIn}}
+        <a href="/login">Log in</a>
+        <a href="/register" class="button">Register</a>
+      {{/loggedIn}}
+    </nav>
+  </header>
+  <main id="main" class="page">
+    {{#flash}}
+    <p class="flash flash--{{type}}" role="status">{{message}}</p>
+    {{/flash}}

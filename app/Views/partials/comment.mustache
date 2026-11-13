@@ -1,0 +1,35 @@
+{{! One comment and, recursively, its replies. Every node always has
+    hasChildren and children set, so lookups never fall through to a parent. }}
+<li class="comment" id="comment-{{id}}">
+  <article class="comment__card">
+    <header class="comment__meta">
+      <img class="avatar" src="/assets/default-avatar.svg" alt="" width="32" height="32">
+      <strong class="comment__author">{{author}}</strong>
+      <time datetime="{{createdIso}}">{{createdUtc}}</time>
+      <span class="depth-badge">Depth {{depth}}</span>
+    </header>
+    <p class="comment__body">{{body}}</p>
+    <div class="comment__actions">
+      {{#hasChildren}}
+      <span class="toggle-slot" data-replies="replies-{{id}}"></span>
+      {{/hasChildren}}
+      {{#canReply}}{{#canReplyHere}}
+      <details class="reply">
+        <summary>Reply</summary>
+        <form method="post" action="/discussions/{{discussion.id}}/comments" class="stack">
+          <input type="hidden" name="_token" value="{{csrfToken}}">
+          <input type="hidden" name="parent_id" value="{{id}}">
+          <label for="reply-body-{{id}}">Reply to {{author}}</label>
+          <textarea id="reply-body-{{id}}" name="body" rows="3" maxlength="{{maxChars}}" required></textarea>
+          <button type="submit" class="button">Post reply</button>
+        </form>
+      </details>
+      {{/canReplyHere}}{{/canReply}}
+    </div>
+  </article>
+  {{#hasChildren}}
+  <ul class="replies{{^indentChildren}} replies--capped{{/indentChildren}}" id="replies-{{id}}">
+    {{#children}}{{> comment}}{{/children}}
+  </ul>
+  {{/hasChildren}}
+</li>

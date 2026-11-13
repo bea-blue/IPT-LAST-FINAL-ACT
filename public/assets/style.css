@@ -1,0 +1,111 @@
+/* Nested Forum Lab styles */
+:root {
+  --bg: #f6f7f9;
+  --card: #ffffff;
+  --text: #1d2330;
+  --muted: #5b6475;
+  --line: #d9dde5;
+  --accent: #2f5bd3;
+  --accent-dark: #1f43a6;
+  --thread: #c5cde0;
+  --ok: #e7f6ec;
+  --ok-text: #1d6b39;
+  --bad: #fdecec;
+  --bad-text: #a32020;
+  --indent: 1.5rem;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.5;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; }
+a { color: var(--accent); }
+a:hover { color: var(--accent-dark); }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.skip-link { position: absolute; left: -999px; }
+.skip-link:focus { left: 1rem; top: 1rem; background: var(--card); padding: .5rem; }
+
+.site-header {
+  display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  padding: .75rem 1.5rem; background: var(--card); border-bottom: 1px solid var(--line);
+}
+.brand { font-weight: 700; font-size: 1.1rem; text-decoration: none; color: var(--text); }
+.account-nav { display: flex; align-items: center; gap: .75rem; flex-wrap: wrap; }
+.inline-form { display: inline; margin: 0; }
+
+.page { max-width: 860px; margin: 0 auto; padding: 1.5rem; }
+.site-footer { text-align: center; color: var(--muted); font-size: .85rem; padding: 2rem 1rem; }
+
+.button {
+  display: inline-block; border: 1px solid var(--accent); background: var(--accent); color: #fff;
+  border-radius: 6px; padding: .4rem .9rem; font: inherit; cursor: pointer; text-decoration: none;
+}
+.button:hover { background: var(--accent-dark); color: #fff; }
+.button--quiet { background: transparent; color: var(--accent); }
+.button--quiet:hover { background: #eef2fc; color: var(--accent-dark); }
+
+.flash { padding: .6rem .9rem; border-radius: 6px; }
+.flash--success { background: var(--ok); color: var(--ok-text); }
+.flash--error { background: var(--bad); color: var(--bad-text); }
+.errors { background: var(--bad); color: var(--bad-text); border-radius: 6px; padding: .5rem 1rem; }
+.notice { color: var(--muted); font-style: italic; }
+.meta { color: var(--muted); font-size: .9rem; }
+.empty { color: var(--muted); }
+
+.stack { display: flex; flex-direction: column; gap: .4rem; max-width: 560px; }
+.stack button { align-self: flex-start; margin-top: .4rem; }
+input[type=text], input[type=email], input[type=password], textarea {
+  font: inherit; padding: .45rem .6rem; border: 1px solid var(--line); border-radius: 6px; width: 100%;
+}
+small { color: var(--muted); }
+
+.new-comment { margin-top: 1.5rem; }
+.auth-card, .discussion, .new-comment, .error-page {
+  background: var(--card); border: 1px solid var(--line); border-radius: 10px; padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;
+}
+.error-code { font-size: 2.5rem; font-weight: 700; color: var(--muted); margin: 0; }
+
+.discussion-list { list-style: none; padding: 0; }
+.discussion-list li {
+  background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: .8rem 1rem; margin-bottom: .6rem;
+  display: flex; flex-direction: column;
+}
+.discussion-list a { font-weight: 600; font-size: 1.05rem; }
+
+.avatar { border-radius: 50%; vertical-align: middle; background: #e3e8f2; }
+
+/* ----- reply tree ----- */
+.thread, .replies { list-style: none; margin: 0; padding: 0; }
+.comment { margin: .6rem 0 0; }
+.comment__card { background: var(--card); border: 1px solid var(--line); border-radius: 8px; padding: .6rem .9rem; }
+.comment__meta { display: flex; align-items: center; flex-wrap: wrap; gap: .5rem; font-size: .9rem; }
+.comment__meta time { color: var(--muted); }
+.comment__body { margin: .4rem 0; white-space: pre-wrap; overflow-wrap: anywhere; }
+.comment__actions { display: flex; align-items: flex-start; gap: .75rem; flex-wrap: wrap; font-size: .9rem; }
+.depth-badge {
+  margin-left: auto; font-size: .75rem; font-weight: 600; color: var(--accent-dark);
+  background: #eef2fc; border-radius: 999px; padding: .05rem .55rem;
+}
+
+/* Each nesting level indents by --indent ... */
+.replies { margin-left: var(--indent); padding-left: .75rem; border-left: 2px solid var(--thread); }
+/* ... until the cap (displayed depth 8): deeper replies line up with depth 8,
+   while their "Depth n" badges keep counting. */
+.replies--capped { margin-left: 0; padding-left: 0; border-left: none; }
+
+.reply summary { cursor: pointer; color: var(--accent); }
+.reply form { margin-top: .5rem; }
+
+.toggle-replies {
+  font: inherit; font-size: .85rem; background: none; border: 1px solid var(--line); border-radius: 6px;
+  padding: .1rem .55rem; cursor: pointer; color: var(--text);
+}
+.toggle-replies:hover { background: #eef2fc; }
+
+@media (max-width: 560px) {
+  :root { --indent: .75rem; }
+  .page { padding: 1rem; }
+}

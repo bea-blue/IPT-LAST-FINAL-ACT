@@ -1,0 +1,11 @@
+{{> header}}
+<section class="error-page">
+  <p class="error-code">{{status}}</p>
+  <h1>{{title}}</h1>
+  <p>{{message}}</p>
+  {{#hasDetails}}
+  <ul class="errors">{{#details}}<li>{{text}}</li>{{/details}}</ul>
+  {{/hasDetails}}
+  <p><a href="{{backUrl}}">← Go back</a></p>
+</section>
+{{> footer}}

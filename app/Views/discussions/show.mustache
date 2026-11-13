@@ -1,0 +1,47 @@
+{{> header}}
+<nav class="breadcrumb" aria-label="Breadcrumb"><a href="/">← All discussions</a></nav>
+
+{{#discussion}}
+<article class="discussion">
+  <h1>{{title}}</h1>
+  <p class="meta">
+    <img class="avatar" src="/assets/default-avatar.svg" alt="" width="24" height="24">
+    Started by <strong>{{author}}</strong> · <time datetime="{{createdIso}}">{{createdUtc}}</time>
+  </p>
+  <p class="discussion__body">{{body}}</p>
+</article>
+{{/discussion}}
+
+<section class="thread-section" aria-labelledby="replies-heading">
+  <h2 id="replies-heading">Replies ({{commentTotal}})</h2>
+
+  {{#hasComments}}
+  <ul class="thread">
+    {{#comments}}{{> comment}}{{/comments}}
+  </ul>
+  {{/hasComments}}
+  {{^hasComments}}
+  <p class="empty">No replies yet.</p>
+  {{/hasComments}}
+
+  {{#treeTruncated}}
+  <p class="notice">{{hiddenCount}} replies could not be shown because they exceed the display limit or are not connected to this discussion.</p>
+  {{/treeTruncated}}
+</section>
+
+<section class="new-comment" aria-labelledby="new-comment-heading">
+  <h2 id="new-comment-heading">Add a top-level comment</h2>
+  {{#canReply}}
+  <form method="post" action="/discussions/{{discussion.id}}/comments" class="stack">
+    <input type="hidden" name="_token" value="{{csrfToken}}">
+    <input type="hidden" name="parent_id" value="">
+    <label for="new-comment-body">Your comment</label>
+    <textarea id="new-comment-body" name="body" rows="4" maxlength="{{maxChars}}" required></textarea>
+    <button type="submit" class="button">Post comment</button>
+  </form>
+  {{/canReply}}
+  {{^canReply}}
+  <p>Anyone can read this discussion. <a href="/login">Log in</a> or <a href="/register">create an account</a> to reply.</p>
+  {{/canReply}}
+</section>
+{{> footer}}

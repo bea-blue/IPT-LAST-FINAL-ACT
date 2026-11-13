@@ -1,0 +1,17 @@
+{{> header}}
+<h1>Discussions</h1>
+
+{{#hasDiscussions}}
+<ul class="discussion-list">
+  {{#discussions}}
+  <li>
+    <a href="/discussions/{{id}}">{{title}}</a>
+    <span class="meta">by {{author}} · {{createdUtc}} · {{commentCount}} comments</span>
+  </li>
+  {{/discussions}}
+</ul>
+{{/hasDiscussions}}
+{{^hasDiscussions}}
+<p class="empty">No discussions yet. Import database/schema.sql to load the sample data.</p>
+{{/hasDiscussions}}
+{{> footer}}
