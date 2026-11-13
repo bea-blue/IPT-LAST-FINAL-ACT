@@ -38,7 +38,7 @@ the parameter binding visible, which is what the lab asks us to explain.
 ## Setup
 
 ```bash
-git clone https://github.com/bea-blue/forum-refactor.git
+git clone https://github.com/bea-blue/IPT-LAST-FINAL-ACT.git forum-refactor
 cd forum-refactor
 composer install                          # installs bramus/router and mustache/mustache
 
